@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore New Events (Single File)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- Root Variables and Dark Mode Definition --- */
+        :root {
+            /* Light Mode Defaults */
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --accent-color: #00bcd4;
+            --background-color: #f8f9fa;
+            --card-bg: white;
+            --text-dark: #212529;
+            --text-light: #6c757d;
+            --input-bg: #fff;
+            --input-border: #ced4da;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+        }
+
+        .dark-mode {
+            /* Dark Mode Overrides */
+            --primary-color: #6a9bfc; 
+            --secondary-color: #a0a0a0;
+            --accent-color: #00e5ff; 
+            --background-color: #1a1a2e; 
+            --card-bg: #272741; 
+            --text-dark: #e0e0e0; 
+            --text-light: #a0a0a0; 
+            --input-bg: #33334d; 
+            --input-border: #444; 
+            --success-color: #4CAF50;
+            --danger-color: #ff6b6b;
+        }
+        
+        /* --- General Body & Dark Mode Base Styles --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-dark);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .dark-mode body {
+            color: var(--text-dark);
+        }
+
+        /* --- Navbar Styling --- */
+        .navbar {
+            background-color: var(--card-bg);
+            padding: 15px 40px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .navbar-brand {
+            font-size: 1.8em;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            transition: color 0.3s;
+        }
+        
+        /* Group the action buttons */
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px; 
+        }
+        
+        /* Add Event Button */
+        .btn-add-event {
+            background-color: var(--success-color);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+            font-size: 1em;
+        }
+        
+        .btn-add-event:hover {
+            background-color: #1e7e34;
+        }
+        
+        .dark-mode .btn-add-event:hover {
+            background-color: #388E3C;
+        }
+
+        /* --- Search Bar Styling --- */
+        .search-bar-container {
+            flex-grow: 1; 
+            max-width: 500px; 
+            margin: 0 40px; 
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--input-border);
+            border-radius: 8px;
+            background-color: var(--input-bg);
+            color: var(--text-dark);
+            font-size: 1em;
+            transition: border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+
+        .dark-mode .search-input:focus {
+             box-shadow: 0 0 0 0.2rem rgba(106, 155, 252, 0.3);
+        }
+
+        .dark-mode-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.3em;
+            padding: 10px;
+            border-radius: 50%;
+            transition: background-color 0.2s, color 0.3s;
+            color: var(--text-dark);
+        }
+
+        .dark-mode-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .dark-mode .dark-mode-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- Header Section --- */
+        header {
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 50%, #00bcd4 100%); 
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        
+        .dark-mode header {
+             background: linear-gradient(90deg, #1b0042 0%, #082960 50%, #00606d 100%);
+        }
+
+        header h1 {
+            margin-bottom: 5px;
+            font-size: 2.8em;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        /* --- Event Grid Container --- */
+        .events-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 20px 40px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        
+        .no-results {
+            grid-column: 1 / -1; 
+            text-align: center;
+            padding: 50px;
+            font-size: 1.5em;
+            color: var(--text-light);
+        }
+
+        /* --- Individual Event Card Styling --- */
+        .event-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .dark-mode .event-card {
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .event-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 4px solid var(--accent-color);
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.6em;
+            font-weight: 600;
+        }
+
+        .card-content p.short-detail {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.5;
+            font-size: 0.95em;
+        }
+
+        /* --- Button Styling --- */
+        .card-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: auto; 
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .dark-mode .card-buttons {
+            border-top: 1px solid #444;
+        }
+
+        .btn {
+            padding: 12px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            font-size: 0.9em;
+            text-align: center;
+        }
+
+        .btn-register {
+            background-color: #28a745; 
+            color: white;
+            flex-grow: 2;
+        }
+
+        .btn-register:hover {
+            background-color: #1e7e34;
+            transform: scale(1.02);
+        }
+        
+        .dark-mode .btn-register {
+            background-color: #4CAF50;
+        }
+
+        .btn-details {
+            background-color: var(--accent-color);
+            color: white;
+            flex-grow: 1;
+        }
+
+        .btn-details:hover {
+            background-color: #00a4b8;
+            transform: scale(1.02);
+        }
+
+        /* --- More Details Section (Toggle) --- */
+        .more-details {
+            padding: 0 25px;
+            border-top: 1px dashed #ddd;
+            display: none; 
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+        }
+        
+        .dark-mode .more-details {
+            border-top: 1px dashed #444;
+        }
+
+        .more-details.active {
+            display: block;
+            max-height: 600px;
+            padding: 25px;
+        }
+
+        /* --- UPCOMING EVENTS SECTION (NEW/REPLACED) --- */
+        .upcoming-events-section {
+            max-width: 1300px;
+            margin: 60px auto;
+            padding: 40px;
+            text-align: center;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .upcoming-events-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        .upcoming-list {
+            display: grid;
+            /* Responsive Grid: Fit as many columns as possible, min width 280px */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px;
+            padding: 0 40px;
+        }
+
+        .upcoming-item {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            border-left: 5px solid var(--accent-color); /* Accent border */
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+            text-align: left; 
+        }
+        
+        .dark-mode .upcoming-item {
+            background-color: #33334d;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-left: 5px solid var(--accent-color);
+        }
+        
+        .upcoming-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .upcoming-item h3 {
+            margin-top: 0;
+            color: var(--text-dark);
+            font-size: 1.3em; 
+            margin-bottom: 10px;
+        }
+
+        .upcoming-item p {
+            color: var(--text-light);
+            font-size: 0.95em;
+            margin-bottom: 0;
+        }
+        /* --- END UPCOMING EVENTS SECTION --- */
+
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 25px;
+            background-color: var(--text-dark);
+            color: white;
+            margin-top: 40px;
+            font-size: 0.9em;
+            transition: background-color 0.3s;
+        }
+        
+        .dark-mode footer {
+            background-color: #111;
+        }
+        
+        /* --- MODAL STYLING --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            z-index: 1100;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: scale(0.95);
+            transition: transform 0.3s ease-out;
+        }
+        
+        .modal-overlay.open .modal-content {
+             transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--input-border);
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: var(--primary-color);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: color 0.2s;
+        }
+        
+        .modal-close:hover {
+            color: var(--danger-color);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--input-border);
+            border-radius: 5px;
+            background-color: var(--input-bg);
+            color: var(--text-dark);
+            box-sizing: border-box; 
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 1px var(--primary-color);
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn-cancel {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .btn-cancel:hover {
+            background-color: #5a6268;
+        }
+        
+        .btn-save {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-save:hover {
+            background-color: #0056b3;
+        }
+        
+        .dark-mode .btn-save:hover {
+            background-color: #4a80e0;
+        }
+        
+        /* --- Responsiveness for Navbar --- */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 15px 20px;
+            }
+            
+            .navbar-brand {
+                margin-bottom: 10px;
+            }
+            
+            .search-bar-container {
+                margin: 10px 0;
+                order: 3; 
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .navbar-actions {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: space-between;
+                order: 2;
+            }
+            
+            .btn-add-event {
+                flex-grow: 1;
+                text-align: center;
+            }
+            
+            .dark-mode-toggle {
+                padding: 10px;
+                border-radius: 8px;
+            }
+            
+            .modal-content {
+                max-width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="navbar">
+        <a href="#" class="navbar-brand">EventHub</a>
+        
+        <div class="search-bar-container">
+            <input type="text" id="eventSearch" class="search-input" placeholder="Search events by title or keywords...">
+        </div>
+        
+        <div class="navbar-actions">
+            <button id="addEventBtn" class="btn-add-event">
+                <i class="fas fa-plus-circle"></i> Add Event
+            </button>
+            
+            <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle Dark Mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <h1><i class="fas fa-microchip"></i> Explore New Events</h1> 
+            <p>Discover the cutting edge in AI, Development, and Digital Innovation.</p>
+        </div>
+    </header>
+
+    <main class="events-container" id="events-container">
+        </main>
+    
+    <div id="eventModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-calendar-plus"></i> Submit a New Event</h3>
+                <button class="modal-close" id="closeModalBtn" aria-label="Close Modal">&times;</button>
+            </div>
+            
+            <form id="newEventForm">
+                <div class="form-group">
+                    <label for="eventName">Event Name (Required)</label>
+                    <input type="text" id="eventName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventShortDetail">Short Detail (Required, 1 sentence summary)</label>
+                    <input type="text" id="eventShortDetail" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventLongDetail">Full Description (Required)</label>
+                    <textarea id="eventLongDetail" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventDate">Date (e.g., Dec 3-4, 2025)</label>
+                    <input type="text" id="eventDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventLocation">Location (Required)</label>
+                    <input type="text" id="eventLocation" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventImage">Image URL (Optional, uses placeholder if empty)</label>
+                    <input type="url" id="eventImage" placeholder="https://picsum.photos/400/200?random=11">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancel" id="cancelModalBtn">Cancel</button>
+                    <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Save Event</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <section class="upcoming-events-section">
+        <h2><i class="fas fa-calendar-check"></i> Upcoming Events Schedule</h2>
+        <div class="upcoming-list">
+            <div class="upcoming-item">
+                <h3><i class="fas fa-coins" style="color: var(--success-color);"></i> Decentralized Finance (DeFi) Workshop</h3>
+                <p>Date: Q1 2026</p>
+                <p>Focus: Web3, Blockchain Auditing, and Smart Contracts.</p>
+            </div>
+            <div class="upcoming-item">
+                <h3><i class="fas fa-mobile-alt" style="color: var(--primary-color);"></i> iOS 19 Development Summit</h3>
+                <p>Date: Spring 2026</p>
+                <p>Focus: Swift, Vision Pro SDK, and App Store Optimization.</p>
+            </div>
+            <div class="upcoming-item">
+                <h3><i class="fas fa-paint-brush" style="color: var(--accent-color);"></i> Generative AI & Art Integration Conf.</h3>
+                <p>Date: TBD</p>
+                <p>Focus: Midjourney, Stable Diffusion, and Ethical AI principles.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 EventHub. All rights reserved.</p>
+    </footer>
+
+    
+    <script>
+        // 1. Tech Event Data Array (10 events)
+        let events = [ 
+            { id: 1, name: "AI & Machine Learning Expo", shortDetail: "Keynotes on Generative AI, MLOps, and Large Language Models.", longDetail: "The premier event for AI enthusiasts and professionals. Three days of deep-dive workshops on PyTorch, TensorFlow, and responsible AI deployment. Includes a startup pitch session for AI ventures.", date: "Oct 25-27, 2025", location: "San Francisco, CA (Hybrid)", image: "https://picsum.photos/400/200?random=1" },
+            { id: 2, name: "Full-Stack Dev Conference", shortDetail: "Modern web architecture with React, Node.js, and serverless backends.", longDetail: "Focus on the latest full-stack trends, from frontend performance optimization to robust cloud infrastructure (AWS/Azure). Hands-on labs available for advanced security practices.", date: "Nov 12-13, 2025", location: "Virtual & Seattle, WA", image: "https://picsum.photos/400/200?random=2" },
+            { id: 3, name: "Cloud Security Summit 2025", shortDetail: "Protecting data in multi-cloud environments (AWS, GCP, Azure).", longDetail: "A critical conference for CISOs and security engineers. Topics include zero-trust architecture, compliance (GDPR, HIPAA), and automated threat detection systems.", date: "Dec 3-4, 2025", location: "London, UK (Online)", image: "https://picsum.photos/400/200?random=3" },
+            { id: 4, name: "DevOps and SRE Bootcamp", shortDetail: "Continuous Integration/Deployment (CI/CD) and site reliability engineering.", longDetail: "Learn to build resilient systems using Kubernetes, Docker, and Terraform. Intensive sessions on monitoring, logging (ELK stack), and minimizing downtime.", date: "Jan 15-17, 2026", location: "Austin, TX", image: "https://picsum.photos/400/200?random=4" },
+            { id: 5, name: "UX/UI Design Masterclass", shortDetail: "Designing intuitive and accessible digital products.", longDetail: "Focuses on user research, prototyping (Figma/Sketch), and A/B testing methodologies. Learn to bridge the gap between design vision and technical implementation.", date: "Feb 1, 2026", location: "Online Workshop", image: "https://picsum.photos/400/200?random=5" },
+            { id: 6, name: "Quantum Computing Pioneers", shortDetail: "Exploring superconducting qubits and quantum algorithms.", longDetail: "An academic and industry blend event on the future of computation. Covers Qiskit, quantum entanglement, and the roadmap for quantum supremacy. Requires advanced registration.", date: "Mar 1-3, 2026", location: "Boston, MA", image: "https://picsum.photos/400/200?random=6" },
+            { id: 7, name: "Mobile App Innovation Day", shortDetail: "Latest in native (iOS/Android) and cross-platform (Flutter/React Native) development.", longDetail: "Workshops on performance profiling, integrating AI features into mobile apps, and managing large-scale app deployments. Focus on App Store optimization.", date: "Apr 10, 2026", location: "Virtual Event", image: "https://picsum.photos/400/200?random=7" },
+            { id: 8, name: "Big Data & Analytics Forum", shortDetail: "Harnessing the power of petabytes with Hadoop, Spark, and data lakes.", longDetail: "Sessions dedicated to data governance, real-time streaming analytics, and building robust ETL pipelines. Essential for Data Engineers and Analysts.", date: "May 22-23, 2026", location: "Chicago, IL", image: "https://picsum.photos/400/200?random=8" },
+            { id: 9, name: "Embedded Systems Workshop", shortDetail: "From IoT sensors to real-time operating systems (RTOS).", longDetail: "A hands-on workshop focused on microcontrollers (Arduino/Raspberry Pi), low-power communication protocols (LoRa/NB-IoT), and device security.", date: "Jun 6-8, 2026", location: "Silicon Valley, CA", image: "https://picsum.photos/400/200?random=9" },
+            { id: 10, name: "Cyber Warfare Defense", shortDetail: "Current threat landscapes, penetration testing, and incident response.", longDetail: "Advanced training for ethical hackers and defense teams. Covers sophisticated phishing techniques, ransomware defense, and setting up honeypots.", date: "Jul 19-21, 2026", location: "Washington, D.C.", image: "https://picsum.photos/400/200?random=10" }
+        ];
+
+        const eventsContainer = document.getElementById('events-container');
+        const searchInput = document.getElementById('eventSearch');
+        const addEventBtn = document.getElementById('addEventBtn'); 
+        const modalOverlay = document.getElementById('eventModal'); 
+        const closeModalBtn = document.getElementById('closeModalBtn'); 
+        const cancelModalBtn = document.getElementById('cancelModalBtn'); 
+        const newEventForm = document.getElementById('newEventForm'); 
+        
+        // Helper to get the next ID for a new event
+        function getNextEventId() {
+            const maxId = events.reduce((max, event) => Math.max(max, event.id), 0);
+            return maxId + 1;
+        }
+
+        // 2. Function to Render Event Cards
+        function renderEvents(filteredEvents = events) {
+            eventsContainer.innerHTML = ''; 
+            
+            if (filteredEvents.length === 0) {
+                eventsContainer.innerHTML = '<div class="no-results"><i class="fas fa-exclamation-triangle"></i> No events found matching your search criteria.</div>';
+                return;
+            }
+
+            // Loop through the events to create and append cards
+            filteredEvents.forEach(event => {
+                const card = document.createElement('div');
+                card.className = 'event-card';
+                card.setAttribute('data-event-id', event.id);
+
+                card.innerHTML = `
+                    <img src="${event.image || 'https://picsum.photos/400/200?random=100'}" alt="${event.name}" class="event-image">
+                    <div class="card-content">
+                        <h2>${event.name}</h2>
+                        <p class="short-detail">${event.shortDetail}</p>
+                        <div class="card-buttons">
+                            <button class="btn btn-register">
+                                <i class="fas fa-arrow-alt-circle-right"></i> Register
+                            </button>
+                            <button class="btn btn-details" data-toggle="details-${event.id}">
+                                <i class="fas fa-info-circle"></i> More Details
+                            </button>
+                        </div>
+                    </div>
+                    <div class="more-details" id="details-${event.id}">
+                        <p><strong>Full Description:</strong> ${event.longDetail}</p>
+                        <ul>
+                            <li><i class="far fa-calendar-alt"></i> <strong>Date:</strong> ${event.date}</li>
+                            <li><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> ${event.location}</li>
+                        </ul>
+                    </div>
+                `;
+
+                eventsContainer.appendChild(card);
+            });
+        }
+        
+        // 3. Function to Filter Event Cards
+        function filterEvents() {
+            const query = searchInput.value.toLowerCase().trim();
+            
+            if (query === "") {
+                renderEvents(events);
+                return;
+            }
+
+            const filtered = events.filter(event => {
+                return event.name.toLowerCase().includes(query) ||
+                       event.shortDetail.toLowerCase().includes(query) ||
+                       event.longDetail.toLowerCase().includes(query) ||
+                       event.location.toLowerCase().includes(query);
+            });
+            
+            renderEvents(filtered);
+        }
+
+        // 4. Modal Functions 
+        function openModal() {
+            modalOverlay.classList.add('open');
+            // Reset form for new entry
+            newEventForm.reset(); 
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('open');
+            // Clear any lingering search queries after closing modal
+            searchInput.value = '';
+            filterEvents();
+        }
+        
+        // 5. Handle New Event Submission 
+        function handleNewEventSubmission(e) {
+            e.preventDefault(); // Stop default form submission
+            
+            // Basic Form Validation 
+            const name = document.getElementById('eventName').value.trim();
+            const shortDetail = document.getElementById('eventShortDetail').value.trim();
+            const longDetail = document.getElementById('eventLongDetail').value.trim();
+            const date = document.getElementById('eventDate').value.trim();
+            const location = document.getElementById('eventLocation').value.trim();
+            const image = document.getElementById('eventImage').value.trim();
+
+            if (!name || !shortDetail || !longDetail || !date || !location) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Create new event object
+            const newEvent = {
+                id: getNextEventId(),
+                name: name,
+                shortDetail: shortDetail,
+                longDetail: longDetail,
+                date: date,
+                location: location,
+                // Use the provided image URL or a random placeholder
+                image: image || `https://picsum.photos/400/200?random=${getNextEventId() + 100}`, 
+            };
+
+            // Add new event to the array (it will appear at the end)
+            events.push(newEvent);
+            
+            // Re-render the events list to show the new event
+            renderEvents();
+            
+            // Close the modal
+            closeModal();
+            alert(`"${newEvent.name}" has been successfully added to the events list!`);
+        }
+
+
+        // 6. Setup All Event Listeners
+        function setupEventListeners() {
+            // Event Delegation for card details/registration 
+            eventsContainer.addEventListener('click', (e) => {
+                const button = e.target.closest('.btn-details');
+
+                if (button) {
+                    const targetId = button.getAttribute('data-toggle');
+                    const detailsDiv = document.getElementById(targetId);
+                    
+                    detailsDiv.classList.toggle('active');
+                    
+                    if (detailsDiv.classList.contains('active')) {
+                        button.innerHTML = '<i class="fas fa-chevron-up"></i> Hide Details';
+                    } else {
+                        button.innerHTML = '<i class="fas fa-info-circle"></i> More Details';
+                    }
+
+                } else if (e.target.closest('.btn-register')) {
+                    const eventCard = e.target.closest('.event-card');
+                    if (eventCard) {
+                        const eventId = eventCard.getAttribute('data-event-id');
+                        const event = events.find(e => e.id == eventId);
+                        alert(`Redirecting for registration to: ${event.name}!`);
+                    }
+                }
+            });
+            
+            // Search input listener 
+            searchInput.addEventListener('keyup', filterEvents);
+            
+            // Modal button listeners 
+            addEventBtn.addEventListener('click', openModal);
+            closeModalBtn.addEventListener('click', closeModal);
+            cancelModalBtn.addEventListener('click', closeModal);
+            
+            // Close modal if user clicks outside the modal content area
+            modalOverlay.addEventListener('click', (e) => {
+                // Only close if click is directly on the overlay, not the content
+                if (e.target === modalOverlay) {
+                    closeModal();
+                }
+            });
+            
+            // Form submission listener 
+            newEventForm.addEventListener('submit', handleNewEventSubmission);
+        }
+        
+        // 7. Dark Mode Logic 
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        
+        function applyDarkMode(isDark) {
+            if (isDark) {
+                body.classList.add('dark-mode');
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                body.classList.remove('dark-mode');
+                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        }
+        
+        function toggleDarkMode() {
+            const isCurrentlyDark = body.classList.contains('dark-mode');
+            applyDarkMode(!isCurrentlyDark);
+        }
+        
+        darkModeToggle.addEventListener('click', toggleDarkMode);
+        
+        // 8. Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            renderEvents();
+            setupEventListeners();
+            
+            // Check and apply saved theme on load
+            const savedTheme = localStorage.getItem('darkMode');
+            if (savedTheme === 'enabled') {
+                applyDarkMode(true);
+            } else {
+                applyDarkMode(false);
+            }
+        });
+    </script>
+</body>
+</html>
