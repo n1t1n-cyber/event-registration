@@ -110,6 +110,66 @@
             navbarNav.classList.toggle('show');
         });
     </script>
+ <script>
+    /* --------------------------
+           LocalStorage: add participant
+           -------------------------- */
+        const STORAGE_KEY = 'eventhub_participants';
+
+        function readParticipantsStore() {
+            try {
+                return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+            } catch (e) {
+                return {};
+            }
+        }
+
+        function writeParticipantsStore(obj) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+        }
+
+        function addParticipant(eventId, participant) {
+            const store = readParticipantsStore();
+            if (!store[eventId]) store[eventId] = [];
+            store[eventId].push(participant);
+            writeParticipantsStore(store);
+        }
+
+        // handle form submit
+        const form = document.getElementById('registrationForm');
+        const successBox = document.getElementById('regSuccess');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const eventId = document.getElementById('eventSelect').value;
+            const comments = document.getElementById('comments').value.trim();
+
+            if (!fullName || !email || !eventId) {
+                alert('Please fill required fields: name, email and event.');
+                return;
+            }
+
+            const participant = {
+                name: fullName,
+                email: email,
+                phone: phone,
+                comments: comments,
+                registeredOn: new Date().toISOString()
+            };
+
+            addParticipant(eventId, participant);
+
+            // show success and clear form (except event selection)
+            successBox.textContent = `Registered ${fullName} for selected event.`;
+            successBox.style.display = 'block';
+            setTimeout(()=> successBox.style.display = 'none', 3500);
+
+            form.reset();
+        });
+     </script>
 </body>
+
 
 </html>
