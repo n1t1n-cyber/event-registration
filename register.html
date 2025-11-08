@@ -44,7 +44,7 @@
 
             <!-- Form wrapped in a card-like container -->
             <div class="form-container card shadow-sm">
-                <form>
+                <form id="registrationForm">
                     <!-- Full Name -->
                     <div class="form-group">
                         <label for="fullName" class="question"><p>Full Name</p></label>
@@ -85,6 +85,9 @@
                         <button type="submit" class="btn btn-primary btn-lg">Submit Registration</button>
                     </div>
                 </form>
+
+                <!-- success message placeholder -->
+                <div id="regSuccess" style="display:none; margin-top:1rem; padding:0.75rem; border-radius:8px; background:rgba(67,97,238,0.08); color:var(--primary-1);"></div>
             </div>
         </div>
     </section>
@@ -109,9 +112,8 @@
         navbarToggle.addEventListener('click', () => {
             navbarNav.classList.toggle('show');
         });
-    </script>
- <script>
-    /* --------------------------
+        
+        /* --------------------------
            LocalStorage: add participant
            -------------------------- */
         const STORAGE_KEY = 'eventhub_participants';
@@ -169,7 +171,6 @@
             form.reset();
         });
      </script>
-</body>
-
-
-</html>
+ </body>
+ 
+ </html>
