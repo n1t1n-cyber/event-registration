@@ -3,85 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore New Events (Single File)</title>
-    <link rel="stylesheet" href="style2.css"> 
+    <title>Explore Events - EventHub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    </head>
-<body class="event-page-body">
+    <link rel="stylesheet" href="style2.css"> 
+</head>
+
+<body class="event-page-body" id="explore-page">
     
     <nav class="navbar">
-        <a href="#" class="navbar-brand">EventHub</a>
-        
-        <div class="search-bar-container">
-            <input type="text" id="eventSearch" class="search-input" placeholder="Search events by title or keywords...">
-        </div>
-        
-        <div class="navbar-actions">
-            <button id="addEventBtn" class="btn-add-event">
-                <i class="fas fa-plus-circle"></i> Add Event
-            </button>
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="index.html" style="font-size: 30px;">EventHub</a>
             
-            <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle Dark Mode">
-                <i class="fas fa-moon"></i>
+            <div class="search-bar-container">
+                <input type="text" id="eventSearch" class="search-input" placeholder="Search events by title or keywords...">
+            </div>
+
+            <div class="navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="admin-login.html">Admin</a></li>
+                    <li class="nav-item ms-3">
+                        <button id="darkModeToggle" class="btn btn-secondary btn-sm">🌙 Dark Mode</button>
+                    </li>
+                </ul>
+            </div>
+             <button class="navbar-toggler" type="button" id="navbarToggle">
+                <span>☰</span>
             </button>
         </div>
     </nav>
 
     <header>
         <div class="header-content">
-            <h1><i class="fas fa-microchip"></i> Explore New Events</h1> 
+            <h1><i class="fas fa-microchip"></i> Explore All Events</h1> 
             <p>Discover the cutting edge in AI, Development, and Digital Innovation.</p>
         </div>
     </header>
 
     <main class="events-container" id="events-container">
-    </main>
+        </main>
     
-    <div id="eventModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-calendar-plus"></i> Submit a New Event</h3>
-                <button class="modal-close" id="closeModalBtn" aria-label="Close Modal">&times;</button>
-            </div>
-            
-            <form id="newEventForm">
-                <div class="form-group">
-                    <label for="eventName">Event Name (Required)</label>
-                    <input type="text" id="eventName" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="eventShortDetail">Short Detail (Required, 1 sentence summary)</label>
-                    <input type="text" id="eventShortDetail" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="eventLongDetail">Full Description (Required)</label>
-                    <textarea id="eventLongDetail" required></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="eventDate">Date (e.g., Dec 3-4, 2025)</label>
-                    <input type="text" id="eventDate" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="eventLocation">Location (Required)</label>
-                    <input type="text" id="eventLocation" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="eventImage">Image URL (Optional, uses placeholder if empty)</label>
-                    <input type="url" id="eventImage" placeholder="https://picsum.photos/400/200?random=11">
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-cancel" id="cancelModalBtn">Cancel</button>
-                    <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Save Event</button>
-                </div>
-            </form>
-        </div>
-    </div>
     <section class="upcoming-events-section">
         <h2><i class="fas fa-calendar-check"></i> Upcoming Events Schedule</h2>
         <div class="upcoming-list">
@@ -107,240 +68,7 @@
         <p>&copy; 2025 EventHub. All rights reserved.</p>
     </footer>
 
-    
-    <script>
-        // 1. Tech Event Data Array (UPDATED: Added 3 new events at the start)
-        let events = [ 
-            { id: 13, name: "Web Development Workshop", shortDetail: "Build modern, responsive websites with HTML, CSS, JavaScript, and advanced frameworks.", longDetail: "A hands-on, three-day workshop covering the fundamentals of web development including advanced CSS techniques (Flexbox/Grid), modern JavaScript (ES6+), and an introduction to React.", date: "Oct 15-17, 2025", location: "New York, NY (In-Person)", image: "https://picsum.photos/400/200?random=13" },
-            { id: 12, name: "AI & Machine Learning Meetup", shortDetail: "A casual evening of talks and networking focusing on practical AI applications.", longDetail: "Join local AI practitioners to discuss current trends in computer vision, natural language processing, and ethical machine learning. Features two 30-minute lightning talks.", date: "Oct 20, 2025", location: "Virtual (Zoom)", image: "https://picsum.photos/400/200?random=12" },
-            { id: 11, name: "Startup Networking Session", shortDetail: "Connect with investors, mentors, and fellow founders in the tech space.", longDetail: "An exclusive evening for early-stage startup founders and potential investors. Includes structured networking, a brief panel discussion on seed funding, and open pitch practice.", date: "Oct 22, 2025", location: "Silicon Valley, CA", image: "https://picsum.photos/400/200?random=11" },
-            { id: 1, name: "AI & Machine Learning Expo", shortDetail: "Keynotes on Generative AI, MLOps, and Large Language Models.", longDetail: "The premier event for AI enthusiasts and professionals. Three days of deep-dive workshops on PyTorch, TensorFlow, and responsible AI deployment. Includes a startup pitch session for AI ventures.", date: "Oct 25-27, 2025", location: "San Francisco, CA (Hybrid)", image: "https://picsum.photos/400/200?random=1" },
-            { id: 2, name: "Full-Stack Dev Conference", shortDetail: "Modern web architecture with React, Node.js, and serverless backends.", longDetail: "Focus on the latest full-stack trends, from frontend performance optimization to robust cloud infrastructure (AWS/Azure). Hands-on labs available for advanced security practices.", date: "Nov 12-13, 2025", location: "Virtual & Seattle, WA", image: "https://picsum.photos/400/200?random=2" },
-            { id: 3, name: "Cloud Security Summit 2025", shortDetail: "Protecting data in multi-cloud environments (AWS, GCP, Azure).", longDetail: "A critical conference for CISOs and security engineers. Topics include zero-trust architecture, compliance (GDPR, HIPAA), and automated threat detection systems.", date: "Dec 3-4, 2025", location: "London, UK (Online)", image: "https://picsum.photos/400/200?random=3" },
-            { id: 4, name: "DevOps and SRE Bootcamp", shortDetail: "Continuous Integration/Deployment (CI/CD) and site reliability engineering.", longDetail: "Learn to build resilient systems using Kubernetes, Docker, and Terraform. Intensive sessions on monitoring, logging (ELK stack), and minimizing downtime.", date: "Jan 15-17, 2026", location: "Austin, TX", image: "https://picsum.photos/400/200?random=4" },
-            { id: 5, name: "UX/UI Design Masterclass", shortDetail: "Designing intuitive and accessible digital products.", longDetail: "Focuses on user research, prototyping (Figma/Sketch), and A/B testing methodologies. Learn to bridge the gap between design vision and technical implementation.", date: "Feb 1, 2026", location: "Online Workshop", image: "https://picsum.photos/400/200?random=5" },
-            { id: 6, name: "Quantum Computing Pioneers", shortDetail: "Exploring superconducting qubits and quantum algorithms.", longDetail: "An academic and industry blend event on the future of computation. Covers Qiskit, quantum entanglement, and the roadmap for quantum supremacy. Requires advanced registration.", date: "Mar 1-3, 2026", location: "Boston, MA", image: "https://picsum.photos/400/200?random=6" },
-            { id: 7, name: "Mobile App Innovation Day", shortDetail: "Latest in native (iOS/Android) and cross-platform (Flutter/React Native) development.", longDetail: "Workshops on performance profiling, integrating AI features into mobile apps, and managing large-scale app deployments. Focus on App Store optimization.", date: "Apr 10, 2026", location: "Virtual Event", image: "https://picsum.photos/400/200?random=7" },
-            { id: 8, name: "Big Data & Analytics Forum", shortDetail: "Harnessing the power of petabytes with Hadoop, Spark, and data lakes.", longDetail: "Sessions dedicated to data governance, real-time streaming analytics, and building robust ETL pipelines. Essential for Data Engineers and Analysts.", date: "May 22-23, 2026", location: "Chicago, IL", image: "https://picsum.photos/400/200?random=8" },
-            { id: 9, name: "Embedded Systems Workshop", shortDetail: "From IoT sensors to real-time operating systems (RTOS).", longDetail: "A hands-on workshop focused on microcontrollers (Arduino/Raspberry Pi), low-power communication protocols (LoRa/NB-IoT), and device security.", date: "Jun 6-8, 2026", location: "Silicon Valley, CA", image: "https://picsum.photos/400/200?random=9" },
-            { id: 10, name: "Cyber Warfare Defense", shortDetail: "Current threat landscapes, penetration testing, and incident response.", longDetail: "Advanced training for ethical hackers and defense teams. Covers sophisticated phishing techniques, ransomware defense, and setting up honeypots.", date: "Jul 19-21, 2026", location: "Washington, D.C.", image: "https://picsum.photos/400/200?random=10" }
-        ];
-
-        const eventsContainer = document.getElementById('events-container');
-        const searchInput = document.getElementById('eventSearch');
-        const addEventBtn = document.getElementById('addEventBtn'); 
-        const modalOverlay = document.getElementById('eventModal'); 
-        const closeModalBtn = document.getElementById('closeModalBtn'); 
-        const cancelModalBtn = document.getElementById('cancelModalBtn'); 
-        const newEventForm = document.getElementById('newEventForm'); 
-        
-        // Helper to get the next ID for a new event
-        function getNextEventId() {
-            // Find the maximum existing ID and add 1
-            const maxId = events.reduce((max, event) => Math.max(max, event.id), 0);
-            return maxId + 1;
-        }
-
-        // 2. Function to Render Event Cards
-        function renderEvents(filteredEvents = events) {
-            eventsContainer.innerHTML = ''; 
-            
-            if (filteredEvents.length === 0) {
-                eventsContainer.innerHTML = '<div class="no-results"><i class="fas fa-exclamation-triangle"></i> No events found matching your search criteria.</div>';
-                return;
-            }
-
-            // Loop through the events to create and append cards
-            filteredEvents.forEach(event => {
-                const card = document.createElement('div');
-                card.className = 'event-card';
-                card.setAttribute('data-event-id', event.id);
-
-                card.innerHTML = `
-                    <img src="${event.image || 'https://picsum.photos/400/200?random=100'}" alt="${event.name}" class="event-image">
-                    <div class="card-content">
-                        <h2>${event.name}</h2>
-                        <p class="short-detail">${event.shortDetail}</p>
-                        <div class="card-buttons">
-                            <button class="btn btn-register">
-                                <i class="fas fa-arrow-alt-circle-right"></i> Register
-                            </button>
-                            <button class="btn btn-details" data-toggle="details-${event.id}">
-                                <i class="fas fa-info-circle"></i> More Details
-                            </button>
-                        </div>
-                    </div>
-                    <div class="more-details" id="details-${event.id}">
-                        <p><strong>Full Description:</strong> ${event.longDetail}</p>
-                        <ul>
-                            <li><i class="far fa-calendar-alt"></i> <strong>Date:</strong> ${event.date}</li>
-                            <li><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> ${event.location}</li>
-                        </ul>
-                    </div>
-                `;
-
-                eventsContainer.appendChild(card);
-            });
-        }
-        
-        // 3. Function to Filter Event Cards
-        function filterEvents() {
-            const query = searchInput.value.toLowerCase().trim();
-            
-            if (query === "") {
-                renderEvents(events);
-                return;
-            }
-
-            const filtered = events.filter(event => {
-                return event.name.toLowerCase().includes(query) ||
-                       event.shortDetail.toLowerCase().includes(query) ||
-                       event.longDetail.toLowerCase().includes(query) ||
-                       event.location.toLowerCase().includes(query);
-            });
-            
-            renderEvents(filtered);
-        }
-
-        // 4. Modal Functions 
-        function openModal() {
-            modalOverlay.classList.add('open');
-            // Reset form for new entry
-            newEventForm.reset(); 
-        }
-
-        function closeModal() {
-            modalOverlay.classList.remove('open');
-            // Clear any lingering search queries after closing modal
-            searchInput.value = '';
-            filterEvents();
-        }
-        
-        // 5. Handle New Event Submission 
-        function handleNewEventSubmission(e) {
-            e.preventDefault(); // Stop default form submission
-            
-            // Basic Form Validation 
-            const name = document.getElementById('eventName').value.trim();
-            const shortDetail = document.getElementById('eventShortDetail').value.trim();
-            const longDetail = document.getElementById('eventLongDetail').value.trim();
-            const date = document.getElementById('eventDate').value.trim();
-            const location = document.getElementById('eventLocation').value.trim();
-            const image = document.getElementById('eventImage').value.trim();
-
-            if (!name || !shortDetail || !longDetail || !date || !location) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-
-            // Create new event object
-            const newEvent = {
-                id: getNextEventId(),
-                name: name,
-                shortDetail: shortDetail,
-                longDetail: longDetail,
-                date: date,
-                location: location,
-                // Use the provided image URL or a random placeholder
-                image: image || `https://picsum.photos/400/200?random=${getNextEventId() + 100}`, 
-            };
-
-            // Add new event to the array (it will appear at the end)
-            events.push(newEvent);
-            
-            // Re-render the events list to show the new event
-            renderEvents();
-            
-            // Close the modal
-            closeModal();
-            alert(`"${newEvent.name}" has been successfully added to the events list!`);
-        }
-
-
-        // 6. Setup All Event Listeners
-        function setupEventListeners() {
-            // Event Delegation for card details/registration 
-            eventsContainer.addEventListener('click', (e) => {
-                const button = e.target.closest('.btn-details');
-
-                if (button) {
-                    const targetId = button.getAttribute('data-toggle');
-                    const detailsDiv = document.getElementById(targetId);
-                    
-                    detailsDiv.classList.toggle('active');
-                    
-                    if (detailsDiv.classList.contains('active')) {
-                        button.innerHTML = '<i class="fas fa-chevron-up"></i> Hide Details';
-                    } else {
-                        button.innerHTML = '<i class="fas fa-info-circle"></i> More Details';
-                    }
-
-                } else if (e.target.closest('.btn-register')) {
-                    const eventCard = e.target.closest('.event-card');
-                    if (eventCard) {
-                        const eventId = eventCard.getAttribute('data-event-id');
-                        const event = events.find(e => e.id == eventId);
-                        alert(`Redirecting for registration to: ${event.name}!`);
-                    }
-                }
-            });
-            
-            // Search input listener 
-            searchInput.addEventListener('keyup', filterEvents);
-            
-            // Modal button listeners 
-            addEventBtn.addEventListener('click', openModal);
-            closeModalBtn.addEventListener('click', closeModal);
-            cancelModalBtn.addEventListener('click', closeModal);
-            
-            // Close modal if user clicks outside the modal content area
-            modalOverlay.addEventListener('click', (e) => {
-                // Only close if click is directly on the overlay, not the content
-                if (e.target === modalOverlay) {
-                    closeModal();
-                }
-            });
-            
-            // Form submission listener 
-            newEventForm.addEventListener('submit', handleNewEventSubmission);
-        }
-        
-        // 7. Dark Mode Logic 
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const body = document.body;
-        
-        function applyDarkMode(isDark) {
-            if (isDark) {
-                body.classList.add('dark-mode');
-                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                body.classList.remove('dark-mode');
-                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                localStorage.setItem('darkMode', 'disabled');
-            }
-        }
-        
-        function toggleDarkMode() {
-            const isCurrentlyDark = body.classList.contains('dark-mode');
-            applyDarkMode(!isCurrentlyDark);
-        }
-        
-        darkModeToggle.addEventListener('click', toggleDarkMode);
-        
-        // 8. Initialize the page
-        document.addEventListener('DOMContentLoaded', () => {
-            renderEvents();
-            setupEventListeners();
-            
-            // Check and apply saved theme on load
-            const savedTheme = localStorage.getItem('darkMode');
-            if (savedTheme === 'enabled') {
-                applyDarkMode(true);
-            } else {
-                applyDarkMode(false);
-            }
-        });
-    </script>
+    <script src="init-data.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
