@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style2.css">>
 </head>
 
-<body class="bg-light">
+<body class="bg-light" id="index-page">
     <nav class="navbar">
         <div class="container">
 
@@ -104,22 +104,8 @@
         <p class="mb-0">© 2025 EventHub. All rights reserved.</p>
     </footer>
 
-    <script>
-        // Dark Mode Toggle
-        const toggle = document.getElementById('darkModeToggle');
-        toggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            toggle.textContent = document.body.classList.contains('dark-mode') ? '☀️ Light Mode' : '🌙 Dark Mode';
-        });
-
-        // Mobile Menu Toggle (updates aria-expanded)
-        const navbarToggle = document.getElementById('navbarToggle');
-        const navbarNav = document.getElementById('navbarNav');
-        navbarToggle.addEventListener('click', () => {
-            const isOpen = navbarNav.classList.toggle('show');
-            navbarToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        });
-    </script>
+    <script src="init-data.js"></script>
+    <script src="app.js"></script>
 </body>
 
 </html>
