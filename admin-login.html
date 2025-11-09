@@ -5,29 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login - EventHub</title>
-    <!-- Link to the shared stylesheet -->
     <link rel="stylesheet" href="style2.css">
 </head>
 
-<body class="bg-light">
-    <!-- Navbar -->
+<body class="bg-light" id="admin-login-page">
     <nav class="navbar">
         <div class="container">
-            <!-- Brand Logo (links to home) -->
             <a class="navbar-brand fw-bold text-primary" href="index.html" style="font-size: 30px;">EventHub</a>
             
-            <!-- Mobile Menu Toggle Button -->
             <button class="navbar-toggler" type="button" id="navbarToggle">
                 <span>☰</span>
             </button>
 
-            <!-- Collapsible Menu (links updated to point to index.html sections) -->
             <div class="navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="index.html#events">Events</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
-                    <!--<li class="nav-item"><a class="btn btn-primary ms-2" href="register.html">Register</a></li>-->
                     <li class="nav-item"><a class="btn btn-outline-dark ms-2" href="admin-login.html">Admin Login</a>
                     </li>
                     <li class="nav-item ms-3">
@@ -38,12 +32,10 @@
         </div>
     </nav>
 
-    <!-- Login Section -->
     <div class="login-container">
         <div class="card shadow-sm login-card">
             <div class="card-body">
                 <h2 class="text-center fw-bold mb-4">Admin Login</h2>
-                <!-- Login Form -->
                 <form id="loginForm">
                     <div class="form-group mb-3">
                         <label for="email" class="form-label">Email address</label>
@@ -53,46 +45,17 @@
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" placeholder="Password" required>
                     </div>
-                    <!-- Error message display area -->
                     <div id="errorMessage" class="text-danger text-center mb-3" style="display: none;"></div>
                     <button type="submit" class="btn btn-primary w-100 fw-semibold">Login</button>
+                    <button type="button" class="btn btn-link w-100 mt-2" onclick="window.location.href='admin-signup.html'" style="margin-top:  1rem;">Create an
+                        account</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <script>
-        // Dark Mode Toggle
-        const toggle = document.getElementById('darkModeToggle');
-        toggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            toggle.textContent = document.body.classList.contains('dark-mode') ? '☀️ Light Mode' : '🌙 Dark Mode';
-        });
-
-        // Simple login form validation (dummy logic)
-        const loginForm = document.getElementById('loginForm');
-        const errorMessage = document.getElementById('errorMessage');
-        
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Prevent actual form submission
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            // Clear previous errors
-            errorMessage.style.display = 'none';
-            errorMessage.textContent = '';
-
-            // Dummy validation
-            if (email === "admin@eventhub.com" && password === "password123") {
-                // In a real app, you'd redirect to an admin dashboard
-                alert("Login successful! (This is a demo)");
-                // window.location.href = "admin-dashboard.html"; // Example redirect
-            } else {
-                errorMessage.textContent = 'Invalid email or password.';
-                errorMessage.style.display = 'block';
-            }
-        });
-    </script>
+   <script src="init-data.js"></script>
+    <script src="app.js"></script>
 </body>
 
 </html>
