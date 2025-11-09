@@ -187,7 +187,9 @@ footer {
     padding: 2.5rem 0;
     transition: background-color 0.3s ease;
 }
-
+.navbar{
+    display:flex;
+}
 /* --- Dark Mode (Main) --- */
 body.dark-mode {
     background-color: var(--dark-bg-body); color: var(--dark-text-primary);
@@ -675,4 +677,8 @@ body#dashboard-page .ms-3{margin-left:1rem}
 @media (max-width:540px){
     body#dashboard-page .fs-4{font-size:1.1rem}
     body#dashboard-page .navbar-brand{font-size:22px}
+}
+.navbar .container {
+    max-width: 100%;
+    justify-content: space-between;
 }
