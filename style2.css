@@ -1,3 +1,9 @@
+/* * ========================================
+ * style2.css
+ * Aapki main file (index, register, login, explore)
+ * ========================================
+ */
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -82,7 +88,7 @@ a { text-decoration: none; color: inherit; }
 .ms-3 { margin-left: 1rem; }
 .mx-auto { margin-left: auto; margin-right: auto; }
 
-/* Navbar */
+/* Navbar (Main) */
 .navbar {
     background-color: var(--white);
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
@@ -98,7 +104,7 @@ a { text-decoration: none; color: inherit; }
 .nav-link:hover { color: var(--primary-color); }
 .navbar-collapse { display: flex; align-items: center; gap: 1rem; }
 
-/* Buttons */
+/* Buttons (Main) */
 .btn {
     display: inline-block; padding: 0.5rem 1.5rem; font-size: 1rem;
     font-weight: 400; text-align: center; border: 1px solid transparent;
@@ -121,7 +127,7 @@ a { text-decoration: none; color: inherit; }
 /* Hero Section */
 .lead { font-size: 1.25rem; font-weight: 300; }
 
-/* Cards */
+/* Cards (Main) */
 .row { display: flex; flex-wrap: wrap; margin: 0 -0.75rem; }
 .col-md-4 { flex: 0 0 33.333333%; max-width: 33.333333%; padding: 0 0.75rem; margin-bottom: 1.5rem; }
 .card {
@@ -170,60 +176,11 @@ a { text-decoration: none; color: inherit; }
 .form-message.success { background-color: #d1e7dd; color: #0f5132; border: 1px solid #badbcc; }
 .form-message.error { background-color: #f8d7da; color: #842029; border: 1px solid #f5c2c7; }
 
-/* --- NEW: Admin Page Styles --- */
-.admin-container {
-    max-width: 500px; margin: auto; padding: 2.5rem;
-}
-.form-toggle { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
-.form-toggle .btn { flex: 1; }
-
-.dashboard-header {
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;
-}
-
-/* --- NEW: Modal Styles --- */
-.modal-overlay {
-    position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 2000; padding: 1rem;
-}
-.modal-content {
-    width: 100%; max-width: 600px;
-    max-height: 90vh; overflow-y: auto;
-    padding: 1.5rem;
-}
-.modal-header {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 1.5rem;
-}
-.modal-close-btn {
-    font-size: 2rem; font-weight: 700; line-height: 1;
-    color: #6c757d; background: transparent; border: none;
-    cursor: pointer; padding: 0;
-}
-
-#registrations-list-container {
-    max-height: 60vh; overflow-y: auto;
-}
-.registrations-list { list-style: none; padding: 0; }
-.registrations-list li {
-    padding: 1rem;
-    border-bottom: 1px solid #e9ecef;
-}
-.registrations-list li:last-child { border-bottom: none; }
-.registrations-list li strong { display: block; font-size: 1.1rem; }
-.registrations-list li span { color: var(--text-muted); display: block; margin-bottom: 0.5rem; }
-.registrations-list li p { font-style: italic; margin-bottom: 0; }
-
-
 /* About Section */
 #about { transition: background-color 0.3s ease, border-color 0.3s ease; }
 #about p { max-width: 800px; }
 
-/* Footer */
+/* Footer (Main) */
 footer {
     background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
     color: var(--white); text-align: center;
@@ -231,39 +188,33 @@ footer {
     transition: background-color 0.3s ease;
 }
 
-/* --- UPDATED: Professional Dark Mode --- */
+/* --- Dark Mode (Main) --- */
 body.dark-mode {
     background-color: var(--dark-bg-body); color: var(--dark-text-primary);
 }
-
 .dark-mode .card,
 .dark-mode .navbar,
-.dark-mode #about,
-.dark-mode .modal-content {
+.dark-mode #about {
     background-color: var(--dark-bg-surface) !important;
     border-color: var(--dark-border-color);
 }
-
 .dark-mode .form-container,
-.dark-mode .loginForm{
+.dark-mode .loginForm{ /* Assuming loginForm is a class? */
     background: linear-gradient(135deg, var(--dark-gradient-start), var(--dark-gradient-end));
 }
 .dark-mode .bg-gradient-primary {
     background: linear-gradient(135deg, var(--dark-gradient-start), var(--dark-gradient-end));
 }
-
 .dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4, .dark-mode h5,
 .dark-mode .card-title, .dark-mode .navbar-brand,
 .dark-mode .form-group label {
     color: var(--dark-text-heading);
 }
-
 .dark-mode .nav-link { color: var(--dark-text-primary); }
 .dark-mode .nav-link:hover { color: #a9baff; }
 .dark-mode .text-primary { color: #a9baff !important; }
 .dark-mode .text-muted { color: #adb5bd !important; }
 .dark-mode .text-danger { color: var(--dark-danger) !important; }
-
 .dark-mode .btn-light {
     background-color: var(--dark-bg-surface);
     border-color: var(--dark-bg-surface);
@@ -276,9 +227,7 @@ body.dark-mode {
 .dark-mode .btn-secondary:hover { background-color: #5a6268; }
 .dark-mode .btn-danger-outline { color: var(--dark-danger); border-color: var(--dark-danger-outline); }
 .dark-mode .btn-danger-outline:hover { background-color: var(--dark-danger); color: var(--dark-text-heading); }
-
 .dark-mode .navbar-toggler { border-color: var(--dark-border-color); color: var(--dark-text-primary); }
-
 .dark-mode .form-group input,
 .dark-mode .form-group select,
 .dark-mode .form-group textarea {
@@ -294,17 +243,10 @@ body.dark-mode {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
 }
-
 .dark-mode .form-message.success { background-color: #064e3b; color: #a7f3d0; border: 1px solid #047857; }
 .dark-mode .form-message.error { background-color: #991b1b; color: #fecaca; border: 1px solid #dc2626; }
-.dark-mode .modal-close-btn { color: #adb5bd; }
-.dark-mode .registrations-list li { border-color: var(--dark-border-color); }
-.navbar .container {
-            max-width: 100%;
-            justify-content: space-between;
 
-        }
-/* Responsive Design */
+/* Responsive (Main) */
 @media (max-width: 768px) {
     .col-md-4 { flex: 0 0 100%; max-width: 100%; }
     .navbar-toggler { display: block; }
@@ -318,36 +260,29 @@ body.dark-mode {
     h2 { font-size: 1.75rem; }
     .lead { font-size: 1.125rem; }
     .form-container, .admin-container { padding: 1.5rem; }
-    .dashboard-header { flex-direction: column; align-items: stretch; }
-    .dashboard-header .btn { width: 100%; }
 }
-
 @media (max-width: 992px) and (min-width: 769px) {
     .col-md-4 { flex: 0 0 50%; max-width: 50%; }
 }
-/* admin login page */
-/* Make admin login convert into a centered card on larger screens */
+
+/* Admin Login Page */
 .login-container {
     padding: 2rem 1rem;
 }
-
-/* card base tweaks */
 .login-card {
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
-/* Larger screens: center and elevate the login card */
 @media (min-width: 769px) {
     .login-container {
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: calc(100vh - 120px); /* leaves space for navbar/footer */
+        min-height: calc(100vh - 120px);
         padding: 4rem;
         background: transparent;
     }
-
     .login-card {
         width: 520px;
         max-width: 92%;
@@ -355,20 +290,21 @@ body.dark-mode {
         box-shadow: 0 18px 40px rgba(22,28,45,0.10);
         transform: translateY(0);
     }
-
     .login-card .card-body {
         padding: 2rem;
     }
 }
-/* --- STYLES FOR EXPLORE.HTML --- */
 
-/* Body specific to explore page */
+/* * ========================================
+ * STYLES FOR EXPLORE.HTML
+ * (Scoping with body#explore-page)
+ * ========================================
+ */
+
 body#explore-page {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--text-dark); /* Use main variables */
+    color: var(--text-dark);
 }
-
-/* Explore Page Header */
 body#explore-page header {
     background: linear-gradient(90deg, #6a11cb 0%, #2575fc 50%, #00bcd4 100%); 
     color: white;
@@ -387,10 +323,8 @@ body#explore-page header p {
     opacity: 0.9;
     margin-bottom: 0;
 }
-
-/* Explore Page Navbar (Overrides) */
 body#explore-page .navbar .container {
-    max-width: 100%; /* Allow full width */
+    max-width: 100%;
     justify-content: space-between;
 }
 .search-bar-container {
@@ -413,8 +347,6 @@ body#explore-page .navbar .container {
     box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
     outline: none;
 }
-
-/* Event Grid Container */
 .events-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -430,8 +362,6 @@ body#explore-page .navbar .container {
     font-size: 1.5em;
     color: var(--text-muted);
 }
-
-/* Event Card Styling */
 .event-card {
     background-color: var(--white);
     border-radius: 12px;
@@ -509,8 +439,6 @@ body#explore-page .navbar .container {
     padding: 25px;
 }
 .more-details ul { list-style: none; padding-left: 0; }
-
-/* Upcoming Events Section */
 .upcoming-events-section {
     max-width: 1300px;
     margin: 60px auto;
@@ -553,8 +481,6 @@ body#explore-page .navbar .container {
     font-size: 0.95em;
     margin-bottom: 0;
 }
-
-/* Dark Mode for Explore Page */
 .dark-mode body#explore-page {
      color: var(--dark-text-primary);
 }
@@ -587,8 +513,6 @@ body#explore-page .navbar .container {
 }
 .dark-mode .upcoming-item h3 { color: var(--dark-text-heading); }
 .dark-mode .upcoming-item p { color: var(--dark-text-primary); }
-
-/* Explore Page Responsive */
 @media (max-width: 768px) {
     body#explore-page .navbar {
         flex-direction: column;
@@ -603,8 +527,152 @@ body#explore-page .navbar .container {
         width: 100%;
         max-width: 100%;
     }
-    /* Hiding actions on mobile for explore page to match app.js */
     body#explore-page .navbar-actions {
         display: none;
     }
+}
+
+/* * ========================================
+ * STYLES FOR DASHBOARD.HTML
+ * (Scoping with body#dashboard-page)
+ * =Image of a CSS file being merged into another file]
+ * ========================================
+ */
+
+/* * NOTE: Variables from style3.css are defined here,
+ * scoped to the dashboard page. They will not affect
+ * other pages.
+ */
+body#dashboard-page {
+    --primary-1: #4361ee;
+    --primary-2: #3a0ca3;
+    --bg: #f6f8fb;
+    --card-bg: #ffffff;
+    --text: #0f1724;
+    --muted: #6b7280;
+    --danger: #ef4444;
+
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dashboard utility classes */
+body#dashboard-page .container{width:90%;max-width:1200px;margin:0 auto}
+body#dashboard-page .mt-4{margin-top:1.5rem}
+body#dashboard-page .mb-4{margin-bottom:1.5rem}
+body#dashboard-page .mb-0{margin-bottom:0}
+body#dashboard-page .fw-bold{font-weight:700}
+body#dashboard-page .fw-semibold{font-weight:600}
+body#dashboard-page .fs-4{font-size:1.25rem}
+body#dashboard-page .text-center{text-align:center}
+
+/* Dashboard Navbar */
+body#dashboard-page .navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    background: #fff;
+    border-bottom:1px solid rgba(15,23,36,0.04);
+    box-shadow:0 6px 18px rgba(22,28,45,0.04);
+    z-index:1100;
+    padding:0.7rem 0;
+}
+body#dashboard-page .navbar .container{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+body#dashboard-page .navbar-brand{color:var(--primary-1);text-decoration:none}
+body#dashboard-page .navbar-toggler{
+    display:none;
+    background:transparent;
+    border:none;
+    font-size:1.25rem;
+    cursor:pointer;
+}
+body#dashboard-page .navbar-collapse{display:flex;align-items:center;gap:0.75rem}
+body#dashboard-page .navbar-nav{list-style:none;margin:0;padding:0;display:flex;gap:0.75rem;align-items:center}
+body#dashboard-page .nav-link{color:var(--text);text-decoration:none;padding:0.35rem 0.5rem;border-radius:6px}
+body#dashboard-page .nav-link:hover{background:rgba(67,97,238,0.06)}
+
+/* Dashboard Buttons */
+body#dashboard-page .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;
+    padding:0.45rem 0.85rem;border-radius:8px;border:none;background:transparent;cursor:pointer;
+}
+body#dashboard-page .btn-primary{
+    background:linear-gradient(90deg,var(--primary-1),var(--primary-2));
+    color:#fff;font-weight:700;box-shadow:0 10px 30px rgba(67,97,238,0.12);
+}
+body#dashboard-page .btn-outline-danger{
+    border:1px solid rgba(239,68,68,0.12);
+    color:var(--danger);background:transparent;padding:0.45rem 0.75rem;border-radius:8px;
+}
+body#dashboard-page .btn-secondary{background:#eef2ff;color:var(--text);padding:0.35rem 0.6rem;border-radius:6px}
+
+/* Dashboard Page header (actions) */
+body#dashboard-page .d-flex{display:flex}
+body#dashboard-page .justify-content-between{justify-content:space-between}
+body#dashboard-page .align-items-center{align-items:center}
+
+/* Dashboard Cards */
+body#dashboard-page .card{
+    background:var(--card-bg);
+    border-radius:12px;
+    overflow:hidden;
+    border:1px solid rgba(15,23,36,0.04);
+    box-shadow:0 10px 30px rgba(15,23,36,0.04);
+}
+body#dashboard-page .card + .card{margin-top:1rem}
+body#dashboard-page .card-header{
+    padding:1rem 1.25rem;
+    background:linear-gradient(90deg, rgba(67,97,238,0.08), rgba(58,12,163,0.04));
+    border-bottom:1px solid rgba(15,23,36,0.03);
+}
+body#dashboard-page .card-header h3{margin:0;font-size:1.05rem}
+body#dashboard-page .card-body{padding:1rem 1.25rem}
+
+/* Dashboard Tables */
+body#dashboard-page .table-responsive{overflow:auto;width:100%}
+body#dashboard-page .table{width:100%;border-collapse:collapse;font-size:0.95rem}
+body#dashboard-page .table thead th{
+    text-align:left;padding:0.75rem 0.75rem;color:var(--muted);font-weight:600;border-bottom:1px solid rgba(15,23,36,0.06)
+}
+body#dashboard-page .table tbody td{padding:0.9rem 0.75rem;border-bottom:1px solid rgba(15,23,36,0.04);vertical-align:middle;background:transparent}
+body#dashboard-page .table-hover tbody tr:hover td{background:rgba(67,97,238,0.03)}
+body#dashboard-page .table-striped tbody tr:nth-child(odd) td{background:rgba(15,23,36,0.02)}
+
+/* Dashboard Responsive adjustments */
+@media (max-width: 768px){
+    body#dashboard-page .navbar-toggler{display:block}
+    body#dashboard-page .navbar-collapse{display:none}
+    body#dashboard-page .navbar-collapse.show{display:block;width:100%;margin-top:0.5rem}
+    body#dashboard-page .navbar-nav{flex-direction:column;gap:0.4rem;padding:0.6rem 0;border-top:1px solid rgba(15,23,36,0.04)}
+    body#dashboard-page .container{width:94%}
+    body#dashboard-page .card-header, body#dashboard-page .card-body{padding:0.9rem}
+}
+
+/* Dashboard Dark mode tweaks */
+body#dashboard-page.dark-mode{
+    background:linear-gradient(180deg,#0b1220,#0f1724);
+    color:#e6eefc;
+}
+body#dashboard-page.dark-mode .navbar{background:#0b1220;border-color:rgba(255,255,255,0.04);box-shadow:none}
+body#dashboard-page.dark-mode .navbar-brand{color:var(--primary-1)}
+body#dashboard-page.dark-mode .card{background:#0f1724;border-color:rgba(255,255,255,0.04);box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+body#dashboard-page.dark-mode .card-header{background:linear-gradient(90deg, rgba(67,97,238,0.06), rgba(58,12,163,0.03));border-bottom-color:rgba(255,255,255,0.03)}
+body#dashboard-page.dark-mode .card-body{color:#e6eefc}
+body#dashboard-page.dark-mode .table thead th{color:rgba(230,238,252,0.85);border-bottom-color:rgba(255,255,255,0.04)}
+body#dashboard-page.dark-mode .table tbody td{color:rgba(230,238,252,0.9);border-bottom-color:rgba(255,255,255,0.02)}
+body#dashboard-page.dark-mode .table-striped tbody tr:nth-child(odd) td{background:rgba(255,255,255,0.02)}
+body#dashboard-page.dark-mode .table-hover tbody tr:hover td{background:rgba(67,97,238,0.08)}
+
+/* Dashboard small helpers */
+body#dashboard-page .ms-2{margin-left:0.5rem}
+body#dashboard-page .ms-3{margin-left:1rem}
+
+/* Dashboard subtle responsiveness for headings */
+@media (max-width:540px){
+    body#dashboard-page .fs-4{font-size:1.1rem}
+    body#dashboard-page .navbar-brand{font-size:22px}
 }
