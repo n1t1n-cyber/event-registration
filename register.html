@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style2.css">
 </head>
 
-<body class="bg-light">
+<body class="bg-light" id="register-page">
     <!-- Navbar -->
     <nav class="navbar">
         <div class="container">
@@ -67,10 +67,7 @@
                     <div class="form-group">
                         <label for="eventSelect"class="question"><p>Which event are you registering for?</p></label>
                         <select id="eventSelect" required>
-                            <option value="" disabled selected>Select an event...</option>
-                            <option value="web-dev">Web Development Workshop</option>
-                            <option value="ai-ml">AI & Machine Learning Meetup</option>
-                            <option value="startup">Startup Networking Session</option>
+                            <option value="" disabled selected>Loading events...</option>
                         </select>
                     </div>
 
@@ -98,79 +95,8 @@
     </footer>
 
     <!-- Script (Identical to index.html) -->
-    <script>
-        // Dark Mode Toggle
-        const toggle = document.getElementById('darkModeToggle');
-        toggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            toggle.textContent = document.body.classList.contains('dark-mode') ? '☀️ Light Mode' : '🌙 Dark Mode';
-        });
-
-        // Mobile Menu Toggle
-        const navbarToggle = document.getElementById('navbarToggle');
-        const navbarNav = document.getElementById('navbarNav');
-        navbarToggle.addEventListener('click', () => {
-            navbarNav.classList.toggle('show');
-        });
-        
-        /* --------------------------
-           LocalStorage: add participant
-           -------------------------- */
-        const STORAGE_KEY = 'eventhub_participants';
-
-        function readParticipantsStore() {
-            try {
-                return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-            } catch (e) {
-                return {};
-            }
-        }
-
-        function writeParticipantsStore(obj) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
-        }
-
-        function addParticipant(eventId, participant) {
-            const store = readParticipantsStore();
-            if (!store[eventId]) store[eventId] = [];
-            store[eventId].push(participant);
-            writeParticipantsStore(store);
-        }
-
-        // handle form submit
-        const form = document.getElementById('registrationForm');
-        const successBox = document.getElementById('regSuccess');
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const fullName = document.getElementById('fullName').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const eventId = document.getElementById('eventSelect').value;
-            const comments = document.getElementById('comments').value.trim();
-
-            if (!fullName || !email || !eventId) {
-                alert('Please fill required fields: name, email and event.');
-                return;
-            }
-
-            const participant = {
-                name: fullName,
-                email: email,
-                phone: phone,
-                comments: comments,
-                registeredOn: new Date().toISOString()
-            };
-
-            addParticipant(eventId, participant);
-
-            // show success and clear form (except event selection)
-            successBox.textContent = `Registered ${fullName} for selected event.`;
-            successBox.style.display = 'block';
-            setTimeout(()=> successBox.style.display = 'none', 3500);
-
-            form.reset();
-        });
-     </script>
+    <script src="init-data.js"></script>
+    <script src="app.js"></script>
  </body>
  
  </html>
