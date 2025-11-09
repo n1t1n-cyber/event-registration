@@ -242,7 +242,7 @@ function initCreateEvent() {
         return; // Stop execution
     }
 
-    const eventForm = document.getElementById('createEventForm');
+    const eventForm = document.getElementById('create-Event-Form');
     const CURRENT_ADMIN_EMAIL = localStorage.getItem('admin_email');
     
     if (!eventForm) return;
@@ -471,4 +471,5 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (bodyId === 'create-event-page') {
         initCreateEvent();
     }
+
 });
