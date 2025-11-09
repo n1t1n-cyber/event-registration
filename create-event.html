@@ -37,7 +37,7 @@
     </style>
 </head>
 
-<body class="bg-light">
+<body class="bg-light" id="create-event-page">
 
     <script>
         if (localStorage.getItem('admin_logged_in') !== 'true') {
@@ -122,69 +122,8 @@
         </div>
     </main>
 
-    <script>
-        // Dark Mode Toggle
-        const toggle = document.getElementById('darkModeToggle');
-        toggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            toggle.textContent = document.body.classList.contains('dark-mode') ? '☀️ Light Mode' : '🌙 Dark Mode';
-        });
-
-        // Logout functionality (clears all admin flags)
-        const logoutButton = document.getElementById('logoutButton');
-        if (logoutButton) {
-            logoutButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                localStorage.removeItem('admin_logged_in');
-                localStorage.removeItem('admin_name');
-                localStorage.removeItem('admin_email');
-                alert("Logging out...");
-                window.location.href = 'admin-login.html';
-            });
-        }
-
-        // --- NEW: Handle form submission ---
-        const eventForm = document.getElementById('createEventForm');
-        const EVENT_STORAGE_KEY = 'eventhub_events';
-        const CURRENT_ADMIN_EMAIL = localStorage.getItem('admin_email');
-
-        // Helper function to read events from storage
-        function readEventsStore() {
-            try { return JSON.parse(localStorage.getItem(EVENT_STORAGE_KEY)) || []; }
-            catch (e) { return []; }
-        }
-
-        eventForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            // 1. Get all values from the form
-            const title = document.getElementById('eventTitle').value;
-            const description = document.getElementById('eventDescription').value;
-            const date = document.getElementById('eventDate').value;
-            const time = document.getElementById('eventTime').value;
-            const location = document.getElementById('eventLocation').value;
-
-            // 2. Create the new event object
-            const newEvent = {
-                id: 'evt_' + Date.now(), // Unique ID
-                title: title,
-                description: description,
-                date: date,
-                time: time,
-                location: location,
-                adminEmail: CURRENT_ADMIN_EMAIL // Link to the logged-in admin
-            };
-
-            // 3. Read existing events, add new one, save back
-            let allEvents = readEventsStore();
-            allEvents.push(newEvent);
-            localStorage.setItem(EVENT_STORAGE_KEY, JSON.stringify(allEvents));
-
-            // 4. Alert success and redirect to dashboard
-            alert(`Event "${title}" has been created!`);
-            window.location.href = 'dashboard.html';
-        });
-    </script>
+   <script src="init-data.js"></script>
+    <script src="app.js"></script>
 </body>
 
 </html>
