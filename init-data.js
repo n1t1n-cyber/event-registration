@@ -1,9 +1,3 @@
-/*
- * init-data.js
- * This script runs FIRST.
- * Its only job is to populate localStorage with default
- * data IF it doesn't exist.
- */
 
 (function () {
     // Define the storage keys
@@ -33,12 +27,10 @@
 
         // Merge all your events into one master list
         const defaultEvents = [
-            // Your original 3 events
+           
             { id: 'web-dev', title: 'Web Development Workshop', date: '2025-12-10', time: '10:00', location: 'Main Auditorium', description: 'Learn how to build responsive websites using HTML, CSS, and JavaScript.', adminEmail: adminEmail, image: 'images/web_dev_workshop.png' },
             { id: 'ai-ml', title: 'AI & Machine Learning Meetup', date: '2025-11-20', time: '14:00', location: 'Room 204', description: 'A meetup for AI enthusiasts to share ideas and innovations.', adminEmail: adminEmail, image: 'images/Ai_ML_workshop.jpg' },
             { id: 'startup', title: 'Startup Networking Session', date: '2025-12-05', time: '18:00', location: 'College Grounds', description: 'Connect with entrepreneurs and investors to grow your startup ideas.', adminEmail: adminEmail, image: 'images/networking.png' },
-            
-            // Your 10 events from explore.html
             { id: 'evt_1', title: "AI & Machine Learning Expo", description: "Keynotes on Generative AI, MLOps, and Large Language Models.", date: "2025-10-25", time: "09:00", location: "San Francisco, CA (Hybrid)", adminEmail: adminEmail, image: "https://picsum.photos/400/200?random=1" },
             { id: 'evt_2', title: "Full-Stack Dev Conference", description: "Modern web architecture with React, Node.js, and serverless backends.", date: "2025-11-12", time: "09:00", location: "Virtual & Seattle, WA", adminEmail: adminEmail, image: "https://picsum.photos/400/200?random=2" },
             { id: 'evt_3', title: "Cloud Security Summit 2025", description: "Protecting data in multi-cloud environments (AWS, GCP, Azure).", date: "2025-12-03", time: "09:00", location: "London, UK (Online)", adminEmail: adminEmail, image: "https://picsum.photos/400/200?random=3" },
@@ -58,8 +50,9 @@
         }
     }
 
-    // --- 3. Run Initialization ---
+   
     createDefaultAdmin();
     createDefaultEvents();
+
 
 })();
