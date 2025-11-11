@@ -9,24 +9,24 @@
 </head>
 
 <body class="bg-light" id="register-page">
-    <!-- Navbar -->
+   
     <nav class="navbar">
         <div class="container">
-            <!-- Brand Logo (links to home) -->
+            >
             <a class="navbar-brand fw-bold text-primary" href="index.html" style="font-size: 30px;">EventHub</a>
             
-            <!-- Mobile Menu Toggle Button -->
+            
             <button class="navbar-toggler" type="button" id="navbarToggle">
                 <span>☰</span>
             </button>
 
-            <!-- Collapsible Menu (links updated to point to index.html sections) -->
+            
             <div class="navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="index.html#events">Events</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
-                    <!--<li class="nav-item"><a class="btn btn-primary ms-2" href="register.html">Register</a></li>-->
+                   
                     <li class="nav-item"><a class="btn btn-outline-dark ms-2" href="admin-login.html">Admin Login</a>
                     </li>
                     <li class="nav-item ms-3">
@@ -37,33 +37,33 @@
         </div>
     </nav>
 
-    <!-- Registration Form Section -->
+   
     <section id="register-form" class="py-5">
         <div class="container">
             <h2 class="text-center fw-bold mb-5">Register for an Event</h2>
 
-            <!-- Form wrapped in a card-like container -->
+            
             <div class="form-container card shadow-sm">
                 <form id="registrationForm">
-                    <!-- Full Name -->
+                    
                     <div class="form-group">
                         <label for="fullName" class="question"><p>Full Name</p></label>
                         <input type="text" id="fullName" placeholder="Enter your full name" required>
                     </div>
 
-                    <!-- Email -->
+                   
                     <div class="form-group">
                         <label for="email"class="question"><p>Email Address</p></label>
                         <input type="email" id="email" placeholder="Enter your email" required>
                     </div>
 
-                    <!-- Phone Number -->
+                   
                     <div class="form-group">
                         <label for="phone"class="question"><p>Phone Number</p></label>
                         <input type="tel" id="phone" placeholder="Enter your phone number">
                     </div>
 
-                    <!-- Event Selection -->
+                   
                     <div class="form-group">
                         <label for="eventSelect"class="question"><p>Which event are you registering for?</p></label>
                         <select id="eventSelect" required>
@@ -71,33 +71,34 @@
                         </select>
                     </div>
 
-                    <!-- Comments -->
+                   
                     <div class="form-group">
                         <label for="comments"class="question"><p>Comments or Questions</p></label>
                         <textarea id="comments" rows="4" placeholder="Any questions or special requests?"></textarea>
                     </div>
 
-                    <!-- Submit Button -->
+                   
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary btn-lg">Submit Registration</button>
                     </div>
                 </form>
 
-                <!-- success message placeholder -->
+                
                 <div id="regSuccess" style="display:none; margin-top:1rem; padding:0.75rem; border-radius:8px; background:rgba(67,97,238,0.08); color:var(--primary-1);"></div>
             </div>
         </div>
     </section>
 
-    <!-- Footer (Identical to index.html) -->
+    
     <footer id="contact" class="bg-gradient-primary text-white text-center py-4">
         <p class="mb-0">© 2025 EventHub. All rights reserved.</p>
     </footer>
 
-    <!-- Script (Identical to index.html) -->
+    
     <script src="init-data.js"></script>
     <script src="app.js"></script>
  </body>
  
  </html>
+
 
