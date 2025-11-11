@@ -1,8 +1,3 @@
-/*
- * app.js
- * This script runs SECOND.
- * It contains all logic for all pages.
- */
 
 // --- 0. Helper Functions & Constants ---
 const ADMIN_KEY = 'eventhub_admins';
@@ -14,7 +9,7 @@ function readStore(key) {
         return JSON.parse(localStorage.getItem(key)) || [];
     } catch (e) {
         console.error(`Error reading ${key}:`, e);
-        return []; // Return array for admin/event, object for participant
+        return []; 
     }
 }
 
@@ -473,3 +468,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+
